@@ -1,0 +1,31 @@
+{
+    "manifest_version": 3,
+    "name": "LinkedInInjection",
+    "version": "0.1.0",
+    "description": "Short description",
+    "content_scripts": [
+        {
+            "matches": ["*://www.linkedin.com/*", "*://linkedin.com/*"],
+            "js": ["content.js"]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "LinkedIn Injection",
+        "default_icon": {
+            "16": "/images/logo.png",
+            "32": "/images/logo.png",
+            "48": "/images/logo.png",
+            "128": "/images/logo.png"
+        }
+    },
+    "icons": { 
+        "16": "/images/logo.png",
+        "32": "/images/logo.png",
+        "48": "/images/logo.png",
+        "128": "/images/logo.png"
+    },
+    "permissions": [
+        "tabs"
+    ]
+}

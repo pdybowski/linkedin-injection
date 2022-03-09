@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" style="color: white; background: #001952;">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            :root {
+                color: white;
+                background: #001952;
+            }
+
+            .popup__header {
+                padding-bottom: 4px; 
+                margin-bottom: 4px; 
+                border-bottom: 1px solid white;
+            }
+
+            .popup__body {
+                display: flex; 
+                flex-direction: column; 
+                border-bottom: 1px solid white; 
+                padding-bottom: 4px; 
+                margin-bottom: 8px;
+            }
+
+            .popup__checkbox {
+                margin: 4px 0px;
+                display: flex; 
+                flex-direction: row-reverse; 
+                justify-content: left;
+            }
+
+            .popup__checkbox:hover {
+                cursor: pointer;
+            }
+
+            .popup__button:hover {
+                cursor: pointer;
+                background-color: white;
+                color: #001952;
+            }
+
+            .popup__button--submit {
+                border: 2px solid red; 
+                border-radius: 8px; 
+                background: transparent; 
+                color: white;
+            }
+        </style>
+
+        <title>LinkedIn Injection</title>
+    </head>
+    <body style="width: 190px;">
+        <h3 class="popup__header">Please select data to display</h3>
+        <div id="CheckboxArea" class="popup__body"></div>
+        <button id="SubmitButton" class="popup__button popup__button--submit">Submit</button>
+        <script src="popup.js"></script>
+    </body>
+</html>
