@@ -1,12 +1,28 @@
 const ALLOWED_VALUES = [
-    'gender',
+    'picture',
     'name',
+    'gender',
     'location',
     'email',
     'phone',
     'cell',
     'nat',
 ]
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    init();
+})
+
+function init() {
+    renderCheckboxes();
+    bindEvents();
+}
+
+function bindEvents() {
+    const submitBtn = document.querySelector('#SubmitButton');
+    submitBtn.addEventListener('click', submit);
+}
 
 function renderCheckboxes() {
     const targetElement = document.querySelector("#CheckboxArea");
@@ -28,17 +44,10 @@ function getSelectedParams() {
     return params;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    renderCheckboxes();
+async function submit() {
+    const params = getSelectedParams();
+    if(!params) return;
 
-    const submitBtn = document.querySelector('#SubmitButton');
-    submitBtn.addEventListener('click', submit);
-
-    async function submit() {
-        const params = getSelectedParams();
-        if(!params) return;
-
-        const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-        chrome.tabs.sendMessage(tabs[0].id, params)
-    }
-})
+    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    chrome.tabs.sendMessage(tabs[0].id, params)
+}
