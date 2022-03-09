@@ -7,8 +7,8 @@ const ALLOWED_VALUES = [
     'phone',
     'cell',
     'nat',
+    'dob'
 ]
-
 
 document.addEventListener("DOMContentLoaded", function() {
     init();

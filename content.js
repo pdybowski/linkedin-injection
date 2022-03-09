@@ -30,13 +30,22 @@ function renderProfileDetail(data) {
     if(typeof data === 'object') {
         let result = "";
         Object.keys(data).forEach((key, index) => {
-            if(key === 'large') {
-                result += `<img src=${data[key]} />`
-            } else if(key === 'medium' || key === 'thumbnail') {
-                return;
-            }
-            else {
-                result += renderProfileDetail(data[key]) + (index < Object.keys(data).length -1 ? ', ' : '');
+            switch(key) {
+                case 'large':
+                    result += `<img src=${data[key]} />`;
+                    break;
+                case 'medium':
+                case 'thumbnail':
+                    break;
+                case 'date':
+                    result += new Date(data[key]).toDateString() + ', ';
+                    break;
+                case 'age':
+                    result += data[key] + ' yo';
+                    break;
+                default: 
+                    result += renderProfileDetail(data[key]) + (index < Object.keys(data).length -1 ? ', ' : '');
+                    break;
             }
         })
         return result;
