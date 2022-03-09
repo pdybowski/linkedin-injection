@@ -1,5 +1,5 @@
 const BASE_URL = "https://randomuser.me/api/";
-const LEADJET_INJECT_ID = "InjectedElementByLeadJet"
+const LINKEDIN_INJECT_ID = "InjectedElementByLeadJet"
 const TARGET_SELECTOR = "#main";
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
@@ -26,15 +26,22 @@ async function getData(params) {
     }
 }
 
-function renderDetail(data) {
+function renderProfileDetail(data) {
     if(typeof data === 'object') {
         let result = "";
-        Object.keys(data).forEach(key => {
-            result += renderDetail(data[key]);
+        Object.keys(data).forEach((key, index) => {
+            if(key === 'large') {
+                result += `<img src=${data[key]} />`
+            } else if(key === 'medium' || key === 'thumbnail') {
+                return;
+            }
+            else {
+                result += renderProfileDetail(data[key]) + (index < Object.keys(data).length -1 ? ', ' : '');
+            }
         })
         return result;
     } else {
-        return data + ', ';
+        return data;
     }
 }
 
@@ -58,11 +65,11 @@ function generateContainer(profileData) {
                             <div class="display-flex flex-column full-width">
                                 <div class="display-flex align-items-center">
                                     <span class="t-bold mr1">
-                                        ${key}
+                                        ${key === 'picture' ? '' : key[0].toUpperCase() + key.substring(1, key.length)}
                                     </span>
                                 </div>
                                 <span class="t-14 t-normal">
-                                    ${renderDetail(profileData[key])}
+                                    ${renderProfileDetail(profileData[key])}
                                 </span>
                             </div>
                         </div>
@@ -80,11 +87,11 @@ function injectProfileData(profileData) {
     const targetElement = document.querySelector(TARGET_SELECTOR);
     if(!targetElement) return;
 
-    const leadJetElement = document.querySelector(`#${LEADJET_INJECT_ID}`);
+    const leadJetElement = document.querySelector(`#${LINKEDIN_INJECT_ID}`);
     if(leadJetElement) leadJetElement.remove();
 
     const elementToInject = document.createElement("section");
-    elementToInject.setAttribute("id", LEADJET_INJECT_ID);
+    elementToInject.setAttribute("id", LINKEDIN_INJECT_ID);
     const classes = ['artdeco-card', 'ember-view', 'break-words', 'pb3', 'mt4'];
     elementToInject.classList.add(...classes);
 
